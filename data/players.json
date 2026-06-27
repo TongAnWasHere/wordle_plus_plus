@@ -1,10 +1,3 @@
 {
-  "players": [
-    {
-      "password": "abc123",
-      "streak": 8,
-      "username": "tongan",
-      "wins": 8
-    }
-  ]
+  "players": []
 }
