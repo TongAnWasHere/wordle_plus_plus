@@ -26,6 +26,14 @@ Element horizontal_spacer(int width) {
   return text("") | size(WIDTH, EQUAL, width);
 }
 
+string compact_button_label(const string& label) {
+  return " " + label + " ";
+}
+
+string wide_button_label(const string& label) {
+  return " " + label;
+}
+
 Element RenderTitle();
 
 int GetGameBoxWidth(int wordLength) {
@@ -120,12 +128,12 @@ bool PlayInfoDialog(const string& title,
   passwordOption.multiline = false;
   auto passwordInput = Input(passwordOption);
 
-  auto confirm = Button(confirmText, [&] {
+  auto confirm = Button(compact_button_label(confirmText), [&] {
     submitted = true;
     screen.ExitLoopClosure()();
   });
 
-  auto cancel = Button("Cancel", [&] {
+  auto cancel = Button(compact_button_label("Cancel"), [&] {
     submitted = false;
     screen.ExitLoopClosure()();
   });
@@ -167,7 +175,7 @@ bool PlayInfoDialog(const string& title,
 
 void ConfirmationDialog(const string& message) {
   auto screen = ScreenInteractive::Fullscreen();
-  auto okay = Button("Continue", screen.ExitLoopClosure());
+  auto okay = Button(compact_button_label("Continue"), screen.ExitLoopClosure());
 
   auto renderer = Renderer(okay, [&] {
     return vbox({
@@ -203,12 +211,12 @@ bool SingleDialog(const string& title,
 
   auto input = Input(&output, placeholder);
 
-  auto confirm = Button(confirmText, [&] {
+  auto confirm = Button(compact_button_label(confirmText), [&] {
     submitted = true;
     screen.ExitLoopClosure()();
   });
 
-  auto cancel = Button("Cancel", [&] {
+  auto cancel = Button(compact_button_label("Cancel"), [&] {
     submitted = false;
     screen.ExitLoopClosure()();
   });
@@ -255,12 +263,12 @@ bool ShowPauseDialog() {
   auto screen = ScreenInteractive::Fullscreen();
   bool quit = false;
 
-  auto resume = Button("Resume", [&] {
+  auto resume = Button(compact_button_label("Resume"), [&] {
     quit = false;
     screen.ExitLoopClosure()();
   });
 
-  auto quit_btn = Button("Quit to Menu", [&] {
+  auto quit_btn = Button(compact_button_label("Quit to Menu"), [&] {
     quit = true;
     screen.ExitLoopClosure()();
   });
@@ -292,12 +300,12 @@ AfterGameAction ShowAfterGameOptions(bool isGuest,
   auto screen = ScreenInteractive::Fullscreen();
   AfterGameAction choice = AfterGameAction::ReturnToMenu;
 
-  auto play_again = Button("Play Again", [&] {
+  auto play_again = Button(compact_button_label("Play Again"), [&] {
     choice = AfterGameAction::PlayAgain;
     screen.ExitLoopClosure()();
   });
 
-  auto return_menu = Button("Return to Menu", [&] {
+  auto return_menu = Button(compact_button_label("Return to Menu"), [&] {
     choice = AfterGameAction::ReturnToMenu;
     screen.ExitLoopClosure()();
   });
@@ -342,22 +350,22 @@ int ShowPlayModeDialog() {
   auto screen = ScreenInteractive::Fullscreen();
   int wordLength = 0;
 
-  auto mode3 = Button("3-Letter Mode", [&] {
+  auto mode3 = Button(wide_button_label("3-Letter Mode"), [&] {
     wordLength = 3;
     screen.ExitLoopClosure()();
   });
 
-  auto mode5 = Button("5-Letter Mode", [&] {
+  auto mode5 = Button(wide_button_label("5-Letter Mode"), [&] {
     wordLength = 5;
     screen.ExitLoopClosure()();
   });
 
-  auto mode6 = Button("6-Letter Mode", [&] {
+  auto mode6 = Button(wide_button_label("6-Letter Mode"), [&] {
     wordLength = 6;
     screen.ExitLoopClosure()();
   });
 
-  auto back = Button("Back", [&] {
+  auto back = Button(wide_button_label("Back"), [&] {
     wordLength = 0;
     screen.ExitLoopClosure()();
   });
@@ -384,22 +392,22 @@ int ShowWordBankModeDialog() {
   auto screen = ScreenInteractive::Fullscreen();
   int wordLength = 0;
 
-  auto bank3 = Button("3-Letter Bank", [&] {
+  auto bank3 = Button(wide_button_label("3-Letter Bank"), [&] {
     wordLength = 3;
     screen.ExitLoopClosure()();
   });
 
-  auto bank5 = Button("5-Letter Bank", [&] {
+  auto bank5 = Button(wide_button_label("5-Letter Bank"), [&] {
     wordLength = 5;
     screen.ExitLoopClosure()();
   });
 
-  auto bank6 = Button("6-Letter Bank", [&] {
+  auto bank6 = Button(wide_button_label("6-Letter Bank"), [&] {
     wordLength = 6;
     screen.ExitLoopClosure()();
   });
 
-  auto back = Button("Back", [&] {
+  auto back = Button(wide_button_label("Back"), [&] {
     wordLength = 0;
     screen.ExitLoopClosure()();
   });
@@ -456,7 +464,7 @@ void ShowLeaderboardDialog(const vector<Player>& players) {
     }
   }
 
-  auto back = Button("Back", screen.ExitLoopClosure());
+  auto back = Button(compact_button_label("Back"), screen.ExitLoopClosure());
 
   auto renderer = Renderer(back, [&] {
     return vbox({
@@ -495,27 +503,27 @@ void ShowWordBankDialog(vector<string>& wordBank, int wordLength) {
     auto screen = ScreenInteractive::Fullscreen();
     WordBankDialogAction action = WordBankDialogAction::Back;
 
-    auto previous = Button("Previous", [&] {
+    auto previous = Button(compact_button_label("Previous"), [&] {
       action = WordBankDialogAction::Previous;
       screen.ExitLoopClosure()();
     });
 
-    auto next = Button("Next", [&] {
+    auto next = Button(compact_button_label("Next"), [&] {
       action = WordBankDialogAction::Next;
       screen.ExitLoopClosure()();
     });
 
-    auto addWord = Button("Add Word", [&] {
+    auto addWord = Button(compact_button_label("Add Word"), [&] {
       action = WordBankDialogAction::AddWord;
       screen.ExitLoopClosure()();
     });
 
-    auto removeWord = Button("Remove Word", [&] {
+    auto removeWord = Button(compact_button_label("Remove Word"), [&] {
       action = WordBankDialogAction::RemoveWord;
       screen.ExitLoopClosure()();
     });
 
-    auto back = Button("Back", [&] {
+    auto back = Button(compact_button_label("Back"), [&] {
       action = WordBankDialogAction::Back;
       screen.ExitLoopClosure()();
     });
@@ -664,22 +672,22 @@ void ShowDeletePlayersDialog(vector<Player>& players) {
     auto screen = ScreenInteractive::Fullscreen();
     DeletePlayersDialogAction action = DeletePlayersDialogAction::Back;
 
-    auto previous = Button("Previous", [&] {
+    auto previous = Button(compact_button_label("Previous"), [&] {
       action = DeletePlayersDialogAction::Previous;
       screen.ExitLoopClosure()();
     });
 
-    auto next = Button("Next", [&] {
+    auto next = Button(compact_button_label("Next"), [&] {
       action = DeletePlayersDialogAction::Next;
       screen.ExitLoopClosure()();
     });
 
-    auto deletePlayer = Button("Delete Player", [&] {
+    auto deletePlayer = Button(compact_button_label("Delete Player"), [&] {
       action = DeletePlayersDialogAction::DeletePlayer;
       screen.ExitLoopClosure()();
     });
 
-    auto back = Button("Back", [&] {
+    auto back = Button(compact_button_label("Back"), [&] {
       action = DeletePlayersDialogAction::Back;
       screen.ExitLoopClosure()();
     });
@@ -1003,27 +1011,27 @@ GuestMenuAction GuestMenu() {
   auto screen = ScreenInteractive::Fullscreen();
   GuestMenuAction action = GuestMenuAction::Exit;
 
-  auto playAsGuest = Button(" Play as Guest", [&] {
+  auto playAsGuest = Button(wide_button_label("Play as Guest"), [&] {
     action = GuestMenuAction::PlayAsGuest;
     screen.ExitLoopClosure()();
   });
 
-  auto login = Button(" Log in", [&] {
+  auto login = Button(wide_button_label("Log in"), [&] {
     action = GuestMenuAction::Login;
     screen.ExitLoopClosure()();
   });
 
-  auto signup = Button(" Sign up", [&] {
+  auto signup = Button(wide_button_label("Sign up"), [&] {
     action = GuestMenuAction::SignUp;
     screen.ExitLoopClosure()();
   });
 
-  auto leaderboard = Button(" Leaderboard", [&] {
+  auto leaderboard = Button(wide_button_label("Leaderboard"), [&] {
     action = GuestMenuAction::Leaderboard;
     screen.ExitLoopClosure()();
   });
 
-  auto exit = Button(" Exit", [&] {
+  auto exit = Button(wide_button_label("Exit"), [&] {
     action = GuestMenuAction::Exit;
     screen.ExitLoopClosure()();
   });
@@ -1056,37 +1064,37 @@ AdminMenuAction AdminMenu() {
   auto screen = ScreenInteractive::Fullscreen();
   AdminMenuAction action = AdminMenuAction::Exit;
 
-  auto play = Button(" Play", [&] {
+  auto play = Button(wide_button_label("Play"), [&] {
     action = AdminMenuAction::Play;
     screen.ExitLoopClosure()();
   });
 
-  auto daily = Button(" Play Daily Mode", [&] {
+  auto daily = Button(wide_button_label("Play Daily Mode"), [&] {
     action = AdminMenuAction::Daily;
     screen.ExitLoopClosure()();
   });
 
-  auto wordBank = Button(" Word Bank", [&] {
+  auto wordBank = Button(wide_button_label("Word Bank"), [&] {
     action = AdminMenuAction::WordBank;
     screen.ExitLoopClosure()();
   });
 
-  auto deletePlayers = Button(" Delete Player", [&] {
+  auto deletePlayers = Button(wide_button_label("Delete Player"), [&] {
     action = AdminMenuAction::DeletePlayers;
     screen.ExitLoopClosure()();
   });
 
-  auto leaderboard = Button(" Leaderboard", [&] {
+  auto leaderboard = Button(wide_button_label("Leaderboard"), [&] {
     action = AdminMenuAction::Leaderboard;
     screen.ExitLoopClosure()();
   });
 
-  auto logout = Button(" Log Out", [&] {
+  auto logout = Button(wide_button_label("Log Out"), [&] {
     action = AdminMenuAction::Logout;
     screen.ExitLoopClosure()();
   });
 
-  auto exit = Button(" Exit", [&] {
+  auto exit = Button(wide_button_label("Exit"), [&] {
     action = AdminMenuAction::Exit;
     screen.ExitLoopClosure()();
   });
@@ -1121,27 +1129,27 @@ PlayerMenuAction PlayerMenu(const string& username) {
   auto screen = ScreenInteractive::Fullscreen();
   PlayerMenuAction action = PlayerMenuAction::Exit;
 
-  auto play = Button(" Play", [&] {
+  auto play = Button(wide_button_label("Play"), [&] {
     action = PlayerMenuAction::Play;
     screen.ExitLoopClosure()();
   });
 
-  auto daily = Button(" Play Daily Mode", [&] {
+  auto daily = Button(wide_button_label("Play Daily Mode"), [&] {
     action = PlayerMenuAction::Daily;
     screen.ExitLoopClosure()();
   });
 
-  auto leaderboard = Button(" Leaderboard", [&] {
+  auto leaderboard = Button(wide_button_label("Leaderboard"), [&] {
     action = PlayerMenuAction::Leaderboard;
     screen.ExitLoopClosure()();
   });
 
-  auto logout = Button(" Log Out", [&] {
+  auto logout = Button(wide_button_label("Log Out"), [&] {
     action = PlayerMenuAction::Logout;
     screen.ExitLoopClosure()();
   });
 
-  auto exit = Button(" Exit", [&] {
+  auto exit = Button(wide_button_label("Exit"), [&] {
     action = PlayerMenuAction::Exit;
     screen.ExitLoopClosure()();
   });
